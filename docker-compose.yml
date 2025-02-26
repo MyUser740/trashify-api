@@ -1,0 +1,23 @@
+services:
+  trashify_coudflare:
+    container_name: trashify_coudflare
+    image: cloudflare/cloudflared:latest
+    depends_on:
+      - trashify_api_app
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token eyJhIjoiYzJjZDBjZDNkYmUwOTA2MGM1NWIyMWY3ZWIzMTI2ZDIiLCJ0IjoiMzI3Y2Y1ZWQtMGI2MS00NjBmLWFmZjAtYTU5ZjdiZWZkMTBkIiwicyI6IllURXpPR1prTkRNdE56bG1OeTAwT1dRekxUa3pNVEV0WlRCbFpETXpaV0poTVRRNSJ9
+    networks:
+      - connection
+  trashify_api_app:
+    container_name: trashify_api_app
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - connection
+
+networks:
+  connection:
