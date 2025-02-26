@@ -3,8 +3,8 @@ import { DataSourceOptions } from 'typeorm';
 import entities from '../entities';
 
 export const config: DataSourceOptions = {
-    type: 'sqlite',
-    database: process.env.NODE_ENV === 'production' ? process.env.DB_PATH : path.join(__dirname, '../data/db.sqlite'),
+    type: 'better-sqlite3',
+    database: path.join(process.cwd(), 'db/data/db.sqlite'),
     synchronize: true,
     entities: entities
 };
